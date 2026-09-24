@@ -198,13 +198,36 @@ def hent_alle(datoer, cfg):
 
 # ---------------------------------------------------------------- logik
 
+def blokliste(timer):
+    """[10, 11, 13] -> [[10, 11], [13]]"""
+    ud = []
+    for t in sorted(timer):
+        if ud and ud[-1][-1] == t - 1:
+            ud[-1].append(t)
+        else:
+            ud.append([t])
+    return ud
+
+
+def relevante(ledige, min_timer, til, sidste_altid):
+    """Behold kun sammenhængende blokke på mindst min_timer timer,
+    eller blokke der slutter ved lukketid (dagens sidste tid)."""
+    ud = {}
+    for skive, timer in ledige.items():
+        ud[skive] = sorted(t for b in blokliste(timer)
+                           if len(b) >= min_timer or (sidste_altid and b[-1] == til - 1)
+                           for t in b)
+    return ud
+
+
 def sammenlign(forrige, nu):
-    """Returnerer (nye_ledige, taget_igen) som {skive: [timer]}."""
+    """Returnerer (nye_ledige, taget_igen) som {skive: [timer]}.
+    Nye ledige angives som hele blokke, så beskeden viser den samlede ledige tid."""
     nye, taget = {}, {}
     for skive in sorted(set(forrige) | set(nu)):
         f, n = set(forrige.get(skive, [])), set(nu.get(skive, []))
         if n - f:
-            nye[skive] = sorted(n - f)
+            nye[skive] = sorted(t for b in blokliste(n) if set(b) - f for t in b)
         if f - n:
             taget[skive] = sorted(f - n)
     return nye, taget
@@ -266,6 +289,10 @@ def kør():
     state["fejl_i_traek"] = 0
     state["fejl_meldt"] = False
 
+    regel = f"min{cfg.get('min_timer', 2)}_sidste{int(cfg.get('sidste_tid_altid', True))}"
+    regel_skiftet = state.get("regel") != regel
+    state["regel"] = regel
+
     for s, ledige in data.items():
         d = parse_dato(s)
         if alt_ledigt(ledige, cfg["fra_time"], cfg["til_time"]):
@@ -273,9 +300,13 @@ def kør():
             log(s, "alt står som ledigt, formentlig ikke åbnet endnu, venter")
             continue
 
+        ledige = relevante(ledige, cfg.get("min_timer", 2), cfg["til_time"],
+                           cfg.get("sidste_tid_altid", True))
         første_gang = s not in state["datoer"]
         forrige = {} if første_gang else state["datoer"][s]
         nye, taget = sammenlign(forrige, ledige)
+        if regel_skiftet:
+            taget = {}   # undgå falske "taget igen" lige efter en regelændring
 
         if nye:
             titel = (f"Ledig drejeskive {pæn_dato(d)}" if not første_gang
@@ -284,7 +315,7 @@ def kør():
                  tags=["tada"])
         if taget and not første_gang:
             ntfy(f"Taget igen {pæn_dato(d)}",
-                 formater(d, taget) + "\ner booket igen.", prioritet=2)
+                 formater(d, taget) + "\ner ikke længere ledig.", prioritet=2)
         if første_gang and not nye:
             log(s, "første tjek, alt optaget")
 
