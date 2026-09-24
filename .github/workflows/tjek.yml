@@ -3,7 +3,7 @@ name: Tjek drejeskiver
 on:
   schedule:
     # Hvert 30. minut. GitHub bruger UTC, så 5-22 UTC dækker kl. 7-23 dansk tid
-    # både sommer og vinter. Scriptet springer selv over uden for kl. 7-23.
+    # både sommer og vinter. Scriptet springer selv over uden for kl. 7-23.  
     - cron: "7,37 5-22 * * *"
   workflow_dispatch: {}   # gør det muligt at køre manuelt med "Run workflow"
 
