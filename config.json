@@ -6,5 +6,7 @@
   "ressource_prefix": "Drejeskive",
   "fra_time": 10,
   "til_time": 15,
-  "booking_horisont_dage": 31
+  "booking_horisont_dage": 31,
+  "min_timer": 2,
+  "sidste_tid_altid": true
 }
