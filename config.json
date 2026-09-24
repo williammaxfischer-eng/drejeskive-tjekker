@@ -1,0 +1,10 @@
+{
+  "datoer": [
+    "08-10-2026",
+    "22-10-2026"
+  ],
+  "ressource_prefix": "Drejeskive",
+  "fra_time": 10,
+  "til_time": 15,
+  "booking_horisont_dage": 31
+}
