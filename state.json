@@ -1,9 +1,7 @@
 {
   "datoer": {
     "08-10-2026": {
-      "Drejeskive 1": [
-        10
-      ],
+      "Drejeskive 1": [],
       "Drejeskive 2": [],
       "Drejeskive 3": [],
       "Drejeskive 4": [],
@@ -20,5 +18,6 @@
     }
   },
   "fejl_i_traek": 0,
-  "fejl_meldt": false
+  "fejl_meldt": false,
+  "regel": "min2_sidste1"
 }
