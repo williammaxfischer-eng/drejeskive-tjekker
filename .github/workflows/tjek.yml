@@ -2,10 +2,12 @@ name: Tjek drejeskiver
 
 on:
   schedule:
-    # Hvert 30. minut. GitHub bruger UTC, så 5-22 UTC dækker kl. 7-23 dansk tid
-    # både sommer og vinter. Scriptet springer selv over uden for kl. 7-23.  
-    - cron: "7,37 5-22 * * *"
-  workflow_dispatch: {}   # gør det muligt at køre manuelt med "Run workflow"
+    # Hvert 10. minut. GitHub springer mange planlagte kørsler over, så vi beder
+    # om flere end vi har brug for, så der i praksis kommer en ca. hver halve time.
+    # GitHub bruger UTC, så 5-22 UTC dækker kl. 7-23 dansk tid sommer og vinter.
+    # Scriptet springer selv over uden for kl. 7-23.
+    - cron: "3,13,23,33,43,53 5-22 * * *"
+  workflow_dispatch: {}   # "Run workflow"-knappen og cron-job.org bruger denne
 
 permissions:
   contents: write         # så state.json kan gemmes tilbage i repoet
@@ -20,6 +22,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: main   # hent altid nyeste state.json, også hvis kørslen har stået i kø
 
       - uses: actions/setup-python@v6
         with:
