@@ -167,6 +167,15 @@ def vis_dato(page, dato_str):
         raise RuntimeError(f"Forkert område valgt: {valgt}")
 
 
+def vindue(cfg, dato_str):
+    """(fra_time, til_time) for en dato. Ugedage i "tider_pr_ugedag" overstyrer standarden."""
+    dag = UGEDAGE[parse_dato(dato_str).weekday()]
+    særlig = cfg.get("tider_pr_ugedag", {}).get(dag)
+    if særlig:
+        return særlig["fra_time"], særlig["til_time"]
+    return cfg["fra_time"], cfg["til_time"]
+
+
 def hent_alle(datoer, cfg):
     resultat = {}
     with sync_playwright() as p:
@@ -179,8 +188,7 @@ def hent_alle(datoer, cfg):
                 try:
                     vis_dato(page, d)
                     baner = page.evaluate(UDTRÆK_JS)
-                    ledige = ledige_timer(baner, cfg["ressource_prefix"],
-                                          cfg["fra_time"], cfg["til_time"])
+                    ledige = ledige_timer(baner, cfg["ressource_prefix"], *vindue(cfg, d))
                     if not ledige:
                         raise RuntimeError(f"Fandt ingen '{cfg['ressource_prefix']}' på siden")
                     resultat[d] = ledige
@@ -295,12 +303,13 @@ def kør():
 
     for s, ledige in data.items():
         d = parse_dato(s)
-        if alt_ledigt(ledige, cfg["fra_time"], cfg["til_time"]):
+        fra, til = vindue(cfg, s)
+        if alt_ledigt(ledige, fra, til):
             # Siden viser alt som ledigt for dage der ikke er åbnet for booking endnu
             log(s, "alt står som ledigt, formentlig ikke åbnet endnu, venter")
             continue
 
-        ledige = relevante(ledige, cfg.get("min_timer", 2), cfg["til_time"],
+        ledige = relevante(ledige, cfg.get("min_timer", 2), til,
                            cfg.get("sidste_tid_altid", True))
         første_gang = s not in state["datoer"]
         forrige = {} if første_gang else state["datoer"][s]
