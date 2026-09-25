@@ -1,16 +1,21 @@
 {
   "datoer": [
-    "06-10-2026",
-    "05-10-2026",
-    "29-10-2026",
-    "01-10-2026",
-    "08-10-2026",
-    "22-10-2026"
+    "06-10-2026","05-10-2026","29-10-2026","01-10-2026","08-10-2026","22-10-2026"
   ],
   "ressource_prefix": "Drejeskive",
   "fra_time": 10,
   "til_time": 15,
   "booking_horisont_dage": 31,
   "min_timer": 2,
-  "sidste_tid_altid": true
+  "sidste_tid_altid": true,
+  "tider_pr_ugedag": {
+    "mandag": {
+      "fra_time": 15,
+      "til_time": 20
+    },
+    "tirsdag": {
+      "fra_time": 15,
+      "til_time": 20
+    }
+  }
 }
