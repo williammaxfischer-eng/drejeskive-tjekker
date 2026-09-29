@@ -39,6 +39,47 @@
       "Drejeskive 4": [],
       "Drejeskive 5": [],
       "Drejeskive 6": []
+    },
+    "29-10-2026": {
+      "Drejeskive 1": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "Drejeskive 2": [
+        10,
+        11
+      ],
+      "Drejeskive 3": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "Drejeskive 4": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "Drejeskive 5": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "Drejeskive 6": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
     }
   },
   "fejl_i_traek": 0,
