@@ -54,7 +54,11 @@
       "Drejeskive 3": [],
       "Drejeskive 4": [],
       "Drejeskive 5": [],
-      "Drejeskive 6": []
+      "Drejeskive 6": [
+        10,
+        11,
+        12
+      ]
     }
   },
   "fejl_i_traek": 0,
