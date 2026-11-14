@@ -23,6 +23,37 @@
       "Drejeskive 4": [],
       "Drejeskive 5": [],
       "Drejeskive 6": []
+    },
+    "24-11-2026": {
+      "Drejeskive 1": [],
+      "Drejeskive 2": [],
+      "Drejeskive 3": [],
+      "Drejeskive 4": [],
+      "Drejeskive 5": [],
+      "Drejeskive 6": []
+    },
+    "01-12-2026": {
+      "Drejeskive 1": [],
+      "Drejeskive 2": [],
+      "Drejeskive 3": [],
+      "Drejeskive 4": [],
+      "Drejeskive 5": [],
+      "Drejeskive 6": []
+    },
+    "10-12-2026": {
+      "Drejeskive 1": [],
+      "Drejeskive 2": [
+        12,
+        13,
+        14
+      ],
+      "Drejeskive 3": [],
+      "Drejeskive 4": [],
+      "Drejeskive 5": [],
+      "Drejeskive 6": [
+        10,
+        11
+      ]
     }
   },
   "fejl_i_traek": 0,
