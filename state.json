@@ -3,7 +3,10 @@
     "19-11-2026": {
       "Drejeskive 1": [],
       "Drejeskive 2": [],
-      "Drejeskive 3": [],
+      "Drejeskive 3": [
+        13,
+        14
+      ],
       "Drejeskive 4": [],
       "Drejeskive 5": [],
       "Drejeskive 6": []
