@@ -9,16 +9,18 @@
       "Drejeskive 6": []
     },
     "24-11-2026": {
-      "Drejeskive 1": [],
+      "Drejeskive 1": [
+        18,
+        19
+      ],
       "Drejeskive 2": [],
       "Drejeskive 3": [],
       "Drejeskive 4": [],
-      "Drejeskive 5": [],
-      "Drejeskive 6": [
-        17,
-        18,
-        19
-      ]
+      "Drejeskive 5": [
+        15,
+        16
+      ],
+      "Drejeskive 6": []
     },
     "01-12-2026": {
       "Drejeskive 1": [],
